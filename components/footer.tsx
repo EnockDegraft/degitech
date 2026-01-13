@@ -22,7 +22,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {["Web Development", "Mobile Apps", "UI/UX Design", "Consulting"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  <Link href="" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                     {item}
                   </Link>
                 </li>

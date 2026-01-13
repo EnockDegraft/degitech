@@ -10,39 +10,15 @@ export const metadata = {
 export default function TeamPage() {
   const team = [
     {
-      name: "Sarah Johnson",
-      role: "CEO & Co-Founder",
-      bio: "10+ years in tech leadership and strategy",
+      name: "Enock De-Graft Sarpong",
+      role: "CEO & Founder",
+      bio: "5+ years in tech leadership and strategy",
       image: "/professional-woman-portrait.png",
     },
     {
-      name: "Michael Chen",
+      name: "Enock De-Graft Sarpong",
       role: "CTO & Lead Developer",
       bio: "Expert in full-stack development and architecture",
-      image: "/professional-man-portrait.png",
-    },
-    {
-      name: "Emma Davis",
-      role: "Design Director",
-      bio: "Award-winning UX/UI designer with 8+ years experience",
-      image: "/professional-woman-designer.png",
-    },
-    {
-      name: "James Wilson",
-      role: "Mobile Lead",
-      bio: "Specialized in cross-platform mobile development",
-      image: "/professional-man-portrait.png",
-    },
-    {
-      name: "Lisa Anderson",
-      role: "Project Manager",
-      bio: "Certified PM with expertise in Agile methodologies",
-      image: "/professional-woman-portrait.png",
-    },
-    {
-      name: "David Kumar",
-      role: "DevOps Engineer",
-      bio: "Cloud infrastructure and deployment specialist",
       image: "/professional-man-portrait.png",
     },
   ]
