@@ -72,19 +72,22 @@ export default function ContactPage() {
             {
               icon: Mail,
               title: "Email",
-              content: "hello@degitech.com",
+              content: "Click to mail admin",
+              href:"mailto:enocksarpong64@gmail.com",
               action: "Send Email",
             },
             {
               icon: Phone,
               title: "Phone",
-              content: "+1 (555) 123-4567",
+              content: "+233(0) 506-033-192",
+              href:"tel:+233506033192",
               action: "Call Now",
             },
             {
               icon: MapPin,
               title: "Location",
-              content: "San Francisco, CA",
+              content: "Accra, Ghana",
+              href:"https://maps.app.goo.gl/pVBQDXfsy2EKSQg39",
               action: "View Map",
             },
           ].map((contact) => {
@@ -94,9 +97,11 @@ export default function ContactPage() {
                 <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-foreground mb-2">{contact.title}</h3>
                 <p className="text-muted-foreground mb-6">{contact.content}</p>
-                <button className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold">
-                  {contact.action}
-                </button>
+                <a href={contact.href} target="_blank" rel="noopener noreferrer">
+                  <button className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold">
+                    {contact.action}
+                  </button>
+                </a>
               </div>
             )
           })}
