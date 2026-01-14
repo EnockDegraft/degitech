@@ -20,16 +20,16 @@ export default function CTA() {
 
         <div className="mt-16 grid md:grid-cols-3 gap-8">
           {[
-            { label: "Email", value: "hello@degitech.com" },
-            { label: "Phone", value: "+1 (555) 123-4567" },
-            { label: "Location", value: "Remote - Serving Globally" },
+            { label: "Email", value: "click to main admin" },
+            { label: "Phone", value: "+233(0) 506-033-192" },
+            { label: "Location", value: "Accra, Ghana \nRemote work accross the globe" },
           ].map((contact) => (
             <div key={contact.label} className="space-y-2">
               <p className="text-sm text-muted-foreground uppercase tracking-wide">{contact.label}</p>
               <p className="text-lg font-semibold text-foreground">{contact.value}</p>
             </div>
           ))}
-          
+
         </div>
       </div>
     </section>

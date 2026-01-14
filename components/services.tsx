@@ -2,9 +2,9 @@ export default function Services() {
   const services = [
     {
       icon: "🌐",
-      title: "Web Development",
+      title: "Custom Web Development ",
       description:
-        "Responsive, modern websites and web applications built with React, Next.js, and cutting-edge technologies.",
+        "— Fast, secure, and optimized for growth. Responsive, modern websites and web applications built with React, Next.js, and cutting-edge technologies.",
     },
     {
       icon: "📱",

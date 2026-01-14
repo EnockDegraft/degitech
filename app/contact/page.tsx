@@ -79,7 +79,7 @@ export default function ContactPage() {
             {
               icon: Phone,
               title: "Phone",
-              content: "+233(0) 506-033-192",
+              content: "+233 (0) 506-033-192",
               href:"tel:+233506033192",
               action: "Call Now",
             },
@@ -97,7 +97,7 @@ export default function ContactPage() {
                 <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-foreground mb-2">{contact.title}</h3>
                 <p className="text-muted-foreground mb-6">{contact.content}</p>
-                <a href={contact.href} target="_blank" rel="noopener noreferrer">
+                <a href={contact.href}>
                   <button className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold">
                     {contact.action}
                   </button>
