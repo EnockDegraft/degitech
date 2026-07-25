@@ -1,3 +1,4 @@
+//app/blog/blog-client-page.tsx
 "use client"
 
 import { Calendar, User, ArrowRight, X } from "lucide-react"

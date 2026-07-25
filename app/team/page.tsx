@@ -1,3 +1,4 @@
+//app/team/page.tsx
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Linkedin, Twitter, Mail } from "lucide-react"

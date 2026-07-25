@@ -1,3 +1,4 @@
+//app/pricing/PricingClient.tsx
 "use client"
 
 import Header from "@/components/header"

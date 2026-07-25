@@ -1,3 +1,4 @@
+//ap/pricing/page.tsx
 import PricingClient from "./PricingClient"
 
 export const metadata = {

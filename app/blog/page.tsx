@@ -1,3 +1,4 @@
+//app/blog/page.tsx
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import BlogClientPage from "./blog-client-page"

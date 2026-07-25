@@ -1,3 +1,5 @@
+//app/api/send-email/route.ts
+
 import { type NextRequest, NextResponse } from "next/server"
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY

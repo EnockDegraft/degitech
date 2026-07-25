@@ -2,10 +2,11 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Zap } from "lucide-react"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [activeNav, setActiveNav] = useState("Home")
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -18,65 +19,109 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 border-b border-border/50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4 sm:py-5">
+          
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold">
-              D
+          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+            <div className="relative w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-primary-foreground font-bold text-lg group-hover:shadow-lg group-hover:shadow-primary/50 transition-all duration-300 overflow-hidden">
+              {/* Animated gradient on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+              <span className="relative">D</span>
             </div>
-            <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">
-              DegiTech
-            </span>
+            <div className="flex flex-col hidden sm:block">
+              <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300">
+                DegiTech
+              </span>
+              <span className="text-xs font-semibold text-primary/70 group-hover:text-primary transition-colors duration-300">
+                Consults
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8">
-            {navItems.map((item) => (
-              <a
+          <nav className="hidden lg:flex gap-1 items-center bg-primary/5 backdrop-blur-sm border border-primary/20 rounded-full px-8 py-2">
+            {navItems.map((item, index) => (
+              <Link
                 key={item.label}
                 href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setActiveNav(item.label)}
+                className={`relative px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${
+                  activeNav === item.label
+                    ? "text-primary-foreground bg-primary shadow-lg shadow-primary/50"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
-                {item.label}
-              </a>
+                {/* Animated background */}
+                {activeNav === item.label && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 rounded-full -z-10" />
+                )}
+                <span className="relative flex items-center gap-1.5">
+                  {item.label}
+                </span>
+              </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <Link
-            href="/contact"
-            className="hidden md:block px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold"
-          >
-            Get Started
-          </Link>
+          {/* Right Section */}
+          <div className="flex items-center gap-4">
+            {/* CTA Button - Desktop */}
+            <Link
+              href="/contact"
+              className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 group hover:gap-3"
+            >
+              <span>Get Started</span>
+              <Zap size={18} className="group-hover:rotate-12 transition-transform duration-300" />
+            </Link>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2.5 hover:bg-primary/10 rounded-lg transition-all duration-300 text-foreground hover:text-primary"
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? (
+                <X size={24} className="transition-transform duration-300" />
+              ) : (
+                <Menu size={24} className="transition-transform duration-300" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="md:hidden pb-4 border-t border-border pt-4 space-y-3">
+          <nav className="lg:hidden pb-6 border-t border-border/50 pt-6 space-y-2 animate-in fade-in slide-in-from-top-4 duration-300">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
-                className="block text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
+                className={`block px-4 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                  activeNav === item.label
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/50"
+                    : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                }`}
+                onClick={() => {
+                  setIsOpen(false)
+                  setActiveNav(item.label)
+                }}
               >
-                {item.label}
-              </a>
+                <span className="flex items-center gap-2">
+                  {activeNav === item.label && (
+                    <div className="w-2 h-2 bg-primary-foreground rounded-full animate-pulse" />
+                  )}
+                  {item.label}
+                </span>
+              </Link>
             ))}
+            
+            {/* Mobile CTA Button */}
             <Link
               href="/contact"
-              className="block w-full mt-4 px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity text-center font-semibold"
+              className="block w-full mt-4 px-6 py-3.5 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 text-center font-bold text-lg"
+              onClick={() => setIsOpen(false)}
             >
               Get Started
             </Link>

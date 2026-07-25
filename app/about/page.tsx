@@ -1,3 +1,5 @@
+//app/about/page.tsx
+
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Users, Target, Award, Zap } from "lucide-react"
