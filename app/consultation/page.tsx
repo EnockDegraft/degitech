@@ -22,6 +22,7 @@ export default function ConsultationPage() {
 
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -33,6 +34,7 @@ export default function ConsultationPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError("")
 
     try {
       // Send booking confirmation email to user and admin
@@ -58,9 +60,12 @@ export default function ConsultationPage() {
           budget: "not-sure",
           description: "",
         })
+      } else {
+        setError("Something went wrong while scheduling your consultation. Please try again.")
       }
-    } catch (error) {
-      console.error("Error sending consultation email:", error)
+    } catch (err) {
+      console.error("Error sending consultation email:", err)
+      setError("Something went wrong while scheduling your consultation. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -98,8 +103,8 @@ export default function ConsultationPage() {
             },
             {
               icon: User,
-              title: "Expert Team",
-              content: "Talk directly with our project leads and developers",
+              title: "Direct Access",
+              content: "Talk directly with the developer who'll build your project",
             },
           ].map((benefit) => {
             const Icon = benefit.icon
@@ -237,6 +242,12 @@ export default function ConsultationPage() {
                 <Calendar size={20} />
                 {loading ? "Scheduling..." : "Schedule Consultation"}
               </button>
+
+              {error && (
+                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-600 text-sm font-medium">
+                  {error}
+                </div>
+              )}
 
               {submitted && (
                 <div className="p-4 bg-green-500/20 border border-green-500 rounded-lg text-green-700">

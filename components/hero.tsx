@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Code2, Rocket, ArrowRight } from 'lucide-react';
 
 const Hero = () => {
@@ -93,17 +94,17 @@ const Hero = () => {
 
             {/* CTA Buttons - Enhanced */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300 flex items-center justify-center gap-2">
+              <Link href="/consultation" className="group relative px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300 flex items-center justify-center gap-2">
                 <span className="absolute inset-0 bg-gradient-to-r from-primary/50 to-accent/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative flex items-center gap-2">
-                  Start Your Project 
+                  Start Your Project
                   <Rocket size={20} className="group-hover:translate-y-[-2px] transition-transform" />
                 </span>
-              </button>
-              <button className="group px-8 py-4 border-2 border-primary/50 bg-primary/5 rounded-xl font-semibold text-foreground hover:border-primary hover:bg-primary/10 transition-all duration-300 flex items-center justify-center gap-2">
+              </Link>
+              <Link href="/portfolio" className="group px-8 py-4 border-2 border-primary/50 bg-primary/5 rounded-xl font-semibold text-foreground hover:border-primary hover:bg-primary/10 transition-all duration-300 flex items-center justify-center gap-2">
                 View Portfolio
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
 
             {/* Stats Section - Enhanced */}

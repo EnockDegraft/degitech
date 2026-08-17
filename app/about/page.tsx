@@ -2,7 +2,8 @@
 
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Users, Target, Award, Zap } from "lucide-react"
+import Link from "next/link"
+import { Users, Target, Award, Zap, Code2, MessageSquare, Rocket } from "lucide-react"
 
 export const metadata = {
   title: "About | DegiTech Consults",
@@ -33,6 +34,24 @@ export default function AboutPage() {
     },
   ]
 
+  const approach = [
+    {
+      icon: MessageSquare,
+      title: "Direct Communication",
+      description: "You work directly with the person building your product — no account managers, no game of telephone.",
+    },
+    {
+      icon: Code2,
+      title: "Modern Tech Stack",
+      description: "React, Next.js, and modern backend tooling chosen for performance, security, and long-term maintainability.",
+    },
+    {
+      icon: Rocket,
+      title: "Built to Scale",
+      description: "Every project is architected so it can grow with your business, not get rebuilt from scratch later.",
+    },
+  ]
+
   return (
     <main className="min-h-screen bg-background">
       <Header />
@@ -55,19 +74,23 @@ export default function AboutPage() {
           <div>
             <h2 className="text-4xl font-bold text-foreground mb-6">Our Story</h2>
             <p className="text-muted-foreground mb-4">
-              Founded in 2016, DegiTech Consults started with a simple mission: to deliver exceptional web and mobile
-              development services that help businesses thrive in the digital age.
+              DegiTech Consults was founded by Enock De-Graft Sarpong with a simple mission: to deliver
+              exceptional web and mobile development services that help businesses thrive in the digital age.
             </p>
             <p className="text-muted-foreground mb-4">
-              Over the years, we've evolved from a small startup to a dynamic team of 15+ professionals, working with
-              clients across various industries from startups to Fortune 500 companies.
+              Every project is handled with hands-on attention — from the first discovery call to post-launch
+              support — so clients get a direct line to the person actually building their product.
             </p>
             <p className="text-muted-foreground">
-              Today, we're proud to have completed over 50 successful projects, maintaining a 98% client satisfaction
-              rate and continuing to innovate in web and mobile development.
+              Today, DegiTech Consults works with startups and institutions across web, mobile, and NGO platform
+              development, building secure, scalable applications that drive real business value.
             </p>
           </div>
-          <img src="/professional-team-collaborating-office.jpg" alt="Team" className="rounded-2xl border border-border" />
+          <img
+            src="/modern-web-dev-workspace.png"
+            alt="DegiTech Consults development workspace"
+            className="rounded-2xl border border-border"
+          />
         </div>
       </section>
 
@@ -90,34 +113,37 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Highlight */}
+      {/* Meet the Founder */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-foreground mb-6">Meet Our Team</h2>
+          <h2 className="text-4xl font-bold text-foreground mb-6">Meet the Founder</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
-            Talented professionals dedicated to delivering excellence
+            The developer behind DegiTech Consults, dedicated to delivering excellence on every project
           </p>
-          <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
-            View Full Team
-          </button>
+          <Link
+            href="/team"
+            className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          >
+            View Profile
+          </Link>
         </div>
       </section>
 
-      {/* Achievements */}
+      {/* Approach */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/50 border-t border-b border-border">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-foreground mb-12 text-center">Achievements</h2>
+          <h2 className="text-4xl font-bold text-foreground mb-12 text-center">Our Approach</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: "Industry Recognition", desc: "Named Best Dev Agency 2023" },
-              { title: "Client Success", desc: "98% client satisfaction rate" },
-              { title: "Innovation Award", desc: "Tech Innovation Excellence 2024" },
-            ].map((achievement) => (
-              <div key={achievement.title} className="bg-background border border-border rounded-lg p-8 text-center">
-                <h3 className="text-xl font-bold text-primary mb-2">{achievement.title}</h3>
-                <p className="text-muted-foreground">{achievement.desc}</p>
-              </div>
-            ))}
+            {approach.map((item) => {
+              const Icon = item.icon
+              return (
+                <div key={item.title} className="bg-background border border-border rounded-lg p-8 text-center">
+                  <Icon className="w-10 h-10 text-primary mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-primary mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.description}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -127,9 +153,12 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-foreground mb-6">Ready to work with us?</h2>
           <p className="text-xl text-muted-foreground mb-8">Let's discuss how we can help your business grow</p>
-          <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          >
             Get in Touch
-          </button>
+          </Link>
         </div>
       </section>
 

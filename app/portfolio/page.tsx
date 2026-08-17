@@ -19,7 +19,7 @@ export default function PortfolioPage() {
       description: "A full-featured e-commerce platform with payment integration and inventory management",
       image: "/ecommerce-dashboard.png",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      link: "#",
+      link: "/consultation",
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ export default function PortfolioPage() {
       description: "Cross-platform mobile app for tracking workouts and nutrition",
       image: "/fitness-app-interface.png",
       technologies: ["React Native", "Firebase", "SQLite"],
-      link: "#",
+      link: "/consultation",
     },
     {
       id: 3,
@@ -37,7 +37,7 @@ export default function PortfolioPage() {
       description: "Enterprise-level CRM system with advanced analytics and reporting",
       image: "/crm-dashboard-analytics.jpg",
       technologies: ["Next.js", "PostgreSQL", "TypeScript", "Chart.js"],
-      link: "#",
+      link: "/consultation",
     },
     {
       id: 4,
@@ -46,25 +46,25 @@ export default function PortfolioPage() {
       description: "Social networking platform with real-time messaging and notifications",
       image: "/social-media-app-interface.png",
       technologies: ["Flutter", "Firebase", "Socket.io"],
-      link: "#",
+      link: "/consultation",
     },
     {
       id: 5,
       title: "NGO Donation Platform",
       category: "Web Development",
       description: "Secure platform for managing donations to NGOs with transparency and impact tracking",
-      image: "/ngo-donation-platform.png",
+      image: "/healthcare-portal-interface.png",
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      link: "#",
+      link: "/consultation",
     },
     {
       id: 6,
       title: "NGO Fund Management System",
       category: "Web Development",
       description: "Comprehensive fund management system for NGOs with reporting and compliance features",
-      image: "/ngo-fund-management.png",
+      image: "/database-design-architecture.jpg",
       technologies: ["Next.js", "TypeScript", "PostgreSQL", "Chart.js"],
-      link: "#",
+      link: "/consultation",
     },
   ]
 
@@ -104,7 +104,7 @@ export default function PortfolioPage() {
                       href={project.link}
                       className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity inline-flex items-center gap-2"
                     >
-                      View Project
+                      Start a Similar Project
                       <ExternalLink size={18} />
                     </Link>
                   </div>
@@ -132,12 +132,11 @@ export default function PortfolioPage() {
       {/* Statistics */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card/50 border-t border-border">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
             {[
-              { number: "50+", label: "Projects Completed" },
-              { number: "30+", label: "Happy Clients" },
-              { number: "8+", label: "Years Experience" },
-              { number: "15+", label: "Team Members" },
+              { number: "10+", label: "Projects Completed" },
+              { number: "20+", label: "Happy Clients" },
+              { number: "5+", label: "Years Experience" },
             ].map((stat) => (
               <div key={stat.label}>
                 <h3 className="text-4xl font-bold text-primary mb-2">{stat.number}</h3>
@@ -153,9 +152,12 @@ export default function PortfolioPage() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-foreground mb-6">Want to build something amazing?</h2>
           <p className="text-xl text-muted-foreground mb-8">Let's create your next success story</p>
-          <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
+          <Link
+            href="/consultation"
+            className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          >
             Start Your Project
-          </button>
+          </Link>
         </div>
       </section>
 

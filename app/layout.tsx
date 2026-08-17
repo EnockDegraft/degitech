@@ -8,9 +8,17 @@ import "./globals.css"
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
+const SITE_URL = "https://degitechconsults.vercel.app"
+const SITE_NAME = "DegiTech Consults"
+const SITE_DESCRIPTION = "Professional web development and mobile application solutions for your business"
+
 export const metadata: Metadata = {
-  title: "DegiTech Consults | Web & Mobile Development",
-  description: "Professional web development and mobile application solutions for your business",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "DegiTech Consults | Web & Mobile Development",
+    template: "%s | DegiTech Consults",
+  },
+  description: SITE_DESCRIPTION,
   generator: "v0.app",
   icons: {
     icon: [
@@ -28,6 +36,28 @@ export const metadata: Metadata = {
       },
     ],
     apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: "DegiTech Consults | Web & Mobile Development",
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: "/modern-web-dev-workspace.png",
+        width: 1024,
+        height: 683,
+        alt: SITE_NAME,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DegiTech Consults | Web & Mobile Development",
+    description: SITE_DESCRIPTION,
+    images: ["/modern-web-dev-workspace.png"],
   },
 }
 

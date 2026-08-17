@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Code2, Smartphone, Palette, Zap, Lock, Brain } from 'lucide-react'
 
 export default function Services() {
@@ -79,9 +80,10 @@ export default function Services() {
           {services.map((service, index) => {
             const IconComponent = service.icon
             return (
-              <div
+              <Link
+                href="/services"
                 key={index}
-                className={`group relative h-full animate-in fade-in slide-in-from-bottom-8 duration-700 ${`delay-[${index * 100}ms]`}`}
+                className={`group relative block h-full animate-in fade-in slide-in-from-bottom-8 duration-700 ${`delay-[${index * 100}ms]`}`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Background glow */}
@@ -113,7 +115,7 @@ export default function Services() {
                     </svg>
                   </div>
                 </div>
-              </div>
+              </Link>
             )
           })}
         </div>

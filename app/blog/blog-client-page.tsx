@@ -1,8 +1,11 @@
 //app/blog/blog-client-page.tsx
 "use client"
 
-import { Calendar, User, ArrowRight, X } from "lucide-react"
+import Link from "next/link"
+import { Calendar, User, ArrowRight, X, Loader2, Check } from "lucide-react"
 import { useState } from "react"
+
+const AUTHOR = "Enock De-Graft Sarpong"
 
 const posts = [
   {
@@ -11,7 +14,7 @@ const posts = [
     excerpt: "Discover essential practices that every web developer should follow in 2024",
     fullContent:
       "Modern web development requires a solid foundation of best practices. From responsive design to performance optimization, following industry standards ensures your applications are scalable, maintainable, and user-friendly. This comprehensive guide covers 10 essential practices that will elevate your development skills.",
-    author: "Sarah Johnson",
+    author: AUTHOR,
     date: "Jan 10, 2024",
     category: "Web Development",
     image: "/modern-web-dev-workspace.png",
@@ -22,7 +25,7 @@ const posts = [
     excerpt: "Exploring emerging technologies and trends in mobile development",
     fullContent:
       "Mobile development is rapidly evolving with new frameworks, tools, and paradigms emerging constantly. From cross-platform solutions to progressive web apps, developers have more options than ever. This article explores the latest trends shaping the future of mobile application development.",
-    author: "Michael Chen",
+    author: AUTHOR,
     date: "Jan 8, 2024",
     category: "Mobile Development",
     image: "/mobile-app-development-coding.png",
@@ -33,7 +36,7 @@ const posts = [
     excerpt: "Practical techniques to optimize your React applications for better performance",
     fullContent:
       "React applications can become slow without proper optimization. Learn practical techniques to improve performance including code splitting, lazy loading, memoization, and efficient state management. These proven strategies will help you build faster, more responsive React applications.",
-    author: "James Wilson",
+    author: AUTHOR,
     date: "Jan 5, 2024",
     category: "Technology",
     image: "/react-javascript-framework.png",
@@ -44,7 +47,7 @@ const posts = [
     excerpt: "A deep dive into the new features and improvements in Next.js 14",
     fullContent:
       "Next.js 14 brings significant improvements and new features for modern web development. From improved performance to enhanced developer experience, discover what's new in the latest version. Learn how to leverage these features to build better applications.",
-    author: "Emma Davis",
+    author: AUTHOR,
     date: "Jan 2, 2024",
     category: "Framework",
     image: "/nextjs-framework-development.jpg",
@@ -55,7 +58,7 @@ const posts = [
     excerpt: "Learn how to design scalable and efficient database systems",
     fullContent:
       "Good database design is crucial for application performance and scalability. This guide covers fundamental principles of database design, normalization, indexing, and optimization techniques. Build robust database systems that can handle your application's growth.",
-    author: "David Kumar",
+    author: AUTHOR,
     date: "Dec 28, 2023",
     category: "Backend",
     image: "/database-design-architecture.jpg",
@@ -66,7 +69,7 @@ const posts = [
     excerpt: "Essential DevOps practices and tools for modern development teams",
     fullContent:
       "DevOps continues to evolve with new tools and practices emerging regularly. From containerization to infrastructure as code, modern DevOps encompasses many critical practices. Learn what you need to know to implement effective DevOps in your organization.",
-    author: "Lisa Anderson",
+    author: AUTHOR,
     date: "Dec 25, 2023",
     category: "DevOps",
     image: "/devops-ci-cd-pipeline.jpg",
@@ -75,6 +78,41 @@ const posts = [
 
 export default function BlogClientPage() {
   const [selectedPost, setSelectedPost] = useState<number | null>(null)
+  const [newsletterEmail, setNewsletterEmail] = useState("")
+  const [newsletterState, setNewsletterState] = useState<"idle" | "loading" | "success" | "error">("idle")
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newsletterEmail.trim()) return
+
+    setNewsletterState("loading")
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Newsletter Subscriber",
+          email: newsletterEmail,
+          service: "Newsletter Signup",
+          message: `New blog newsletter subscription request from ${newsletterEmail}`,
+          recipientEmail: "enocksarpong64@gmail.com",
+        }),
+      })
+
+      if (response.ok) {
+        setNewsletterState("success")
+        setNewsletterEmail("")
+        setTimeout(() => setNewsletterState("idle"), 4000)
+      } else {
+        setNewsletterState("error")
+        setTimeout(() => setNewsletterState("idle"), 4000)
+      }
+    } catch (error) {
+      console.error("Newsletter signup error:", error)
+      setNewsletterState("error")
+      setTimeout(() => setNewsletterState("idle"), 4000)
+    }
+  }
 
   return (
     <>
@@ -175,20 +213,32 @@ export default function BlogClientPage() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-foreground mb-4">Stay Updated</h2>
           <p className="text-muted-foreground mb-8">Subscribe to our newsletter for the latest articles and insights</p>
-          <form className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
               placeholder="Enter your email"
               required
-              className="flex-1 px-6 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors"
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
+              disabled={newsletterState === "loading"}
+              className="flex-1 px-6 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors disabled:opacity-60"
             />
             <button
               type="submit"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold"
+              disabled={newsletterState === "loading"}
+              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-60"
             >
-              Subscribe
+              {newsletterState === "loading" ? (
+                <Loader2 size={18} className="animate-spin" />
+              ) : newsletterState === "success" ? (
+                <Check size={18} />
+              ) : null}
+              {newsletterState === "loading" ? "Subscribing..." : newsletterState === "success" ? "Subscribed!" : "Subscribe"}
             </button>
           </form>
+          {newsletterState === "error" && (
+            <p className="text-sm text-red-500 font-medium mt-3">Something went wrong. Please try again.</p>
+          )}
         </div>
       </section>
 
@@ -199,9 +249,12 @@ export default function BlogClientPage() {
           <p className="text-xl text-muted-foreground mb-8">
             Can't find what you're looking for? Get in touch with our team
           </p>
-          <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          >
             Contact Us
-          </button>
+          </Link>
         </div>
       </section>
 

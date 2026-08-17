@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
 export default function Portfolio() {
@@ -79,9 +80,10 @@ export default function Portfolio() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div
+            <Link
+              href="/portfolio"
               key={index}
-              className="group relative animate-in fade-in slide-in-from-bottom-8 duration-700"
+              className="group relative block animate-in fade-in slide-in-from-bottom-8 duration-700"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Glow effect */}
@@ -137,16 +139,27 @@ export default function Portfolio() {
                   </div>
 
                   {/* CTA */}
-                  <button className="group/btn w-full py-3 px-4 bg-gradient-to-r from-primary/10 to-accent/10 hover:from-primary/20 hover:to-accent/20 border border-primary/30 rounded-lg text-primary font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-between hover:gap-3">
+                  <div className="w-full py-3 px-4 bg-gradient-to-r from-primary/10 to-accent/10 group-hover:from-primary/20 group-hover:to-accent/20 border border-primary/30 rounded-lg text-primary font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-between group-hover:gap-3">
                     <span>View Project</span>
-                    <svg className="w-5 h-5 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
-                  </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
+        </div>
+
+        {/* View All CTA */}
+        <div className="mt-16 text-center animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <Link
+            href="/portfolio"
+            className="group inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/50 bg-primary/5 rounded-xl font-bold text-foreground hover:border-primary hover:bg-primary/10 transition-all duration-300"
+          >
+            View All Projects
+            <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>

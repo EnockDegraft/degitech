@@ -2,11 +2,16 @@
 
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import Link from "next/link"
 import { CheckCircle, Code2, Smartphone, Zap, Users } from "lucide-react"
 
 export const metadata = {
   title: "Services | DegiTech Consults",
   description: "Explore our web development and mobile app services",
+}
+
+function slugify(title: string) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
 }
 
 export default function ServicesPage() {
@@ -83,7 +88,8 @@ export default function ServicesPage() {
               return (
                 <div
                   key={service.title}
-                  className="bg-card border border-border rounded-2xl p-8 hover:border-primary transition-colors group"
+                  id={slugify(service.title)}
+                  className="scroll-mt-28 bg-card border border-border rounded-2xl p-8 hover:border-primary transition-colors group"
                 >
                   <div className="mb-6">
                     <Icon className="w-12 h-12 text-primary" />
@@ -141,9 +147,12 @@ export default function ServicesPage() {
           <p className="text-xl text-muted-foreground mb-8">
             Let's discuss how we can help transform your ideas into reality
           </p>
-          <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
+          <Link
+            href="/consultation"
+            className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          >
             Schedule Consultation
-          </button>
+          </Link>
         </div>
       </section>
 

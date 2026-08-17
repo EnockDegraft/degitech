@@ -1,25 +1,29 @@
 'use client'
 
+import Link from 'next/link'
 import { Mail, Phone, MapPin, Zap } from 'lucide-react'
 
 export default function CTA() {
   const contacts = [
-    { 
-      icon: Mail, 
-      label: "Email", 
+    {
+      icon: Mail,
+      label: "Email",
       value: "hello@degitech.com",
+      href: "mailto:hello@degitech.com",
       color: "text-blue-400"
     },
-    { 
-      icon: Phone, 
-      label: "Phone", 
-      value: "+233(0) 506-033-192",
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+233 (0) 506-033-192",
+      href: "tel:+233506033192",
       color: "text-purple-400"
     },
-    { 
-      icon: MapPin, 
-      label: "Location", 
+    {
+      icon: MapPin,
+      label: "Location",
       value: "Accra, Ghana",
+      href: "https://maps.app.goo.gl/pVBQDXfsy2EKSQg39",
       color: "text-red-400",
       subtext: "Remote work across the globe"
     },
@@ -59,13 +63,13 @@ export default function CTA() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <button className="group relative px-10 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300">
+            <Link href="/consultation" className="group relative px-10 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300">
               <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative">Schedule Consultation</span>
-            </button>
-            <button className="group px-10 py-4 border-2 border-primary/50 bg-primary/5 rounded-xl font-bold text-foreground hover:border-primary hover:bg-primary/10 transition-all duration-300">
+            </Link>
+            <Link href="/contact" className="group px-10 py-4 border-2 border-primary/50 bg-primary/5 rounded-xl font-bold text-foreground hover:border-primary hover:bg-primary/10 transition-all duration-300">
               Contact Us
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -74,14 +78,17 @@ export default function CTA() {
           {contacts.map((contact, index) => {
             const IconComponent = contact.icon
             return (
-              <div 
+              <a
                 key={index}
-                className="group relative animate-in fade-in slide-in-from-bottom-8 duration-700"
+                href={contact.href}
+                target={contact.href.startsWith("http") ? "_blank" : undefined}
+                rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="group relative block animate-in fade-in slide-in-from-bottom-8 duration-700"
                 style={{ animationDelay: `${200 + index * 100}ms` }}
               >
                 {/* Glow effect */}
                 <div className="absolute -inset-px bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur opacity-0 group-hover:opacity-60 transition-all duration-500 -z-10" />
-                
+
                 {/* Card */}
                 <div className="relative h-full p-8 bg-card/50 backdrop-blur border border-border/80 rounded-2xl hover:border-primary/50 transition-all duration-300">
                   
@@ -114,7 +121,7 @@ export default function CTA() {
                     </svg>
                   </div>
                 </div>
-              </div>
+              </a>
             )
           })}
         </div>

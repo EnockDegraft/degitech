@@ -2,21 +2,25 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X, Zap } from "lucide-react"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeNav, setActiveNav] = useState("Home")
+  const pathname = usePathname()
 
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Portfolio", href: "/portfolio" },
     { label: "About", href: "/about" },
     { label: "Blog", href: "/blog" },
     { label: "Consultation", href: "/consultation" },
     { label: "Contact", href: "/contact" }
   ]
+
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname?.startsWith(href))
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 border-b border-border/50 shadow-sm">
@@ -41,27 +45,29 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex gap-1 items-center bg-primary/5 backdrop-blur-sm border border-primary/20 rounded-full px-8 py-2">
-            {navItems.map((item, index) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setActiveNav(item.label)}
-                className={`relative px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${
-                  activeNav === item.label
-                    ? "text-primary-foreground bg-primary shadow-lg shadow-primary/50"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {/* Animated background */}
-                {activeNav === item.label && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 rounded-full -z-10" />
-                )}
-                <span className="relative flex items-center gap-1.5">
-                  {item.label}
-                </span>
-              </Link>
-            ))}
+          <nav className="hidden lg:flex gap-0.5 items-center bg-primary/5 backdrop-blur-sm border border-primary/20 rounded-full px-4 py-2">
+            {navItems.map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`relative px-3 py-2 text-sm font-semibold rounded-full transition-all duration-300 whitespace-nowrap ${
+                    active
+                      ? "text-primary-foreground bg-primary shadow-lg shadow-primary/50"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {/* Animated background */}
+                  {active && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 rounded-full -z-10" />
+                  )}
+                  <span className="relative flex items-center gap-1.5">
+                    {item.label}
+                  </span>
+                </Link>
+              )
+            })}
           </nav>
 
           {/* Right Section */}
@@ -94,28 +100,28 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isOpen && (
           <nav className="lg:hidden pb-6 border-t border-border/50 pt-6 space-y-2 animate-in fade-in slide-in-from-top-4 duration-300">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`block px-4 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                  activeNav === item.label
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/50"
-                    : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
-                }`}
-                onClick={() => {
-                  setIsOpen(false)
-                  setActiveNav(item.label)
-                }}
-              >
-                <span className="flex items-center gap-2">
-                  {activeNav === item.label && (
-                    <div className="w-2 h-2 bg-primary-foreground rounded-full animate-pulse" />
-                  )}
-                  {item.label}
-                </span>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`block px-4 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                    active
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/50"
+                      : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    {active && (
+                      <div className="w-2 h-2 bg-primary-foreground rounded-full animate-pulse" />
+                    )}
+                    {item.label}
+                  </span>
+                </Link>
+              )
+            })}
             
             {/* Mobile CTA Button */}
             <Link
