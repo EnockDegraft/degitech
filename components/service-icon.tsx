@@ -1,8 +1,8 @@
-import { Bot, Code2, Compass, Palette, Smartphone, Workflow } from "lucide-react"
+import { Bot, Code2, Compass, CreditCard, Palette, Smartphone, Workflow } from "lucide-react"
 import type { ServiceIcon as Kind } from "@/lib/services"
 import { cn } from "@/lib/cn"
 
-const icons = { web: Code2, mobile: Smartphone, ai: Bot, workflow: Workflow, design: Palette, consulting: Compass }
+const icons = { web: Code2, mobile: Smartphone, ai: Bot, workflow: Workflow, design: Palette, consulting: Compass, payments: CreditCard }
 
 export function ServiceIcon({ kind, className }: { kind: Kind; className?: string }) {
   const Icon = icons[kind]

@@ -1,4 +1,4 @@
-export type ServiceIcon = "web" | "mobile" | "ai" | "workflow" | "design" | "consulting"
+export type ServiceIcon = "web" | "mobile" | "ai" | "workflow" | "design" | "consulting" | "payments"
 
 export type Service = {
   slug: string
@@ -28,7 +28,7 @@ export const services: Service[] = [
     summary: "Cross-platform Android and iOS apps in Flutter, shipped to the Play Store and App Store.",
     description:
       "Native-quality mobile apps from one codebase, with offline-friendly flows, biometrics, push notifications and device features like the camera. I handle store submission too.",
-    deliverables: ["Android & iOS from one codebase", "Biometric & face authentication", "Push notifications", "Play Store / App Store release"],
+    deliverables: ["Android & iOS from one codebase", "Push notifications", "Play Store / App Store release"],
     stack: ["Flutter", "Dart", "Firebase", "REST APIs"],
   },
   {
@@ -70,5 +70,15 @@ export const services: Service[] = [
       "An experienced second opinion on architecture, security, vendor proposals and project scope, delivered as a clear written plan with priorities and estimates.",
     deliverables: ["Architecture & API audits", "Security review", "Project scoping & estimates", "Vendor / proposal review"],
     stack: ["Code review", "Threat modelling", "Roadmapping"],
+  },
+  {
+    slug: "payment-gateways",
+    icon: "payments",
+    title: "Payment gateway integrations",
+    summary: "Card, mobile money and bank payment flows built into your web or mobile product.",
+    description:
+      "End-to-end payment integrations covering checkout, subscriptions and payouts, with reconciliation and webhook handling done right so money never goes unaccounted for.",
+    deliverables: ["Card, mobile money & bank transfer checkout", "Subscriptions & recurring billing", "Webhook & reconciliation handling", "PCI-aware, secure by design"],
+    stack: ["Stripe", "Paystack", "Flutterwave", "MTN Mobile Money", "Hubtel"],
   },
 ]
