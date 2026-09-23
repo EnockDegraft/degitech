@@ -1,75 +1,80 @@
-//app/Layout.tsx
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
+import { RevealObserver } from "@/components/reveal-observer"
+import { site } from "@/lib/site"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
-
-const SITE_URL = "https://degitechconsults.vercel.app"
-const SITE_NAME = "DegiTech Consults"
-const SITE_DESCRIPTION = "Professional web development and mobile application solutions for your business"
-
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(site.url),
   title: {
-    default: "DegiTech Consults | Web & Mobile Development",
-    template: "%s | DegiTech Consults",
+    default: `${site.name} | Web, Mobile & AI Software, Accra`,
+    template: `%s | ${site.name}`,
   },
-  description: SITE_DESCRIPTION,
-  generator: "v0.app",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
+  description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.founder.name, url: site.url }],
+  creator: site.founder.name,
+  keywords: [
+    "software development Ghana",
+    "web development Accra",
+    "mobile app development Ghana",
+    "Flutter developer Ghana",
+    "Next.js developer",
+    "face recognition",
+    "workflow automation",
+    "DegiTech Consults",
+  ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "DegiTech Consults | Web & Mobile Development",
-    description: SITE_DESCRIPTION,
-    url: SITE_URL,
-    siteName: SITE_NAME,
-    images: [
-      {
-        url: "/modern-web-dev-workspace.png",
-        width: 1024,
-        height: 683,
-        alt: SITE_NAME,
-      },
-    ],
-    locale: "en_US",
     type: "website",
+    locale: "en_GH",
+    url: site.url,
+    siteName: site.name,
+    title: `${site.name} | ${site.tagline}`,
+    description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "DegiTech Consults | Web & Mobile Development",
-    description: SITE_DESCRIPTION,
-    images: ["/modern-web-dev-workspace.png"],
+    title: `${site.name} | ${site.tagline}`,
+    description: site.description,
   },
+  robots: { index: true, follow: true },
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#060a16",
+  colorScheme: "dark",
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  url: site.url,
+  description: site.description,
+  founder: { "@type": "Person", name: site.founder.name, jobTitle: site.founder.role },
+  address: { "@type": "PostalAddress", addressLocality: "Accra", addressCountry: "GH" },
+  areaServed: ["Ghana", "West Africa", "Worldwide (remote)"],
+  sameAs: [site.social.github],
+}
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`font-sans antialiased`}>
-        {children}
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Enables reveal animations only when JS runs, so content is never hidden without it. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </head>
+      <body className="min-h-dvh overflow-x-clip">
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
+        <RevealObserver />
         <Analytics />
       </body>
     </html>

@@ -1,27 +1,22 @@
 import type { MetadataRoute } from "next"
-
-const BASE_URL = "https://degitechconsults.vercel.app"
+import { site } from "@/lib/site"
+import { projects } from "@/lib/projects"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    { path: "", priority: 1, changeFrequency: "weekly" as const },
-    { path: "/services", priority: 0.9, changeFrequency: "monthly" as const },
-    { path: "/pricing", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/portfolio", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/about", priority: 0.7, changeFrequency: "monthly" as const },
-    { path: "/team", priority: 0.6, changeFrequency: "monthly" as const },
-    { path: "/blog", priority: 0.7, changeFrequency: "weekly" as const },
-    { path: "/consultation", priority: 0.9, changeFrequency: "monthly" as const },
-    { path: "/contact", priority: 0.9, changeFrequency: "monthly" as const },
-    { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/terms-of-service", priority: 0.3, changeFrequency: "yearly" as const },
-    { path: "/site-map", priority: 0.2, changeFrequency: "yearly" as const },
+  const now = new Date()
+  const pages = ["", "/services", "/work", "/about", "/pricing", "/contact", "/consultation", "/privacy"]
+  return [
+    ...pages.map((p) => ({
+      url: `${site.url}${p}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: p === "" ? 1 : p === "/privacy" ? 0.3 : 0.8,
+    })),
+    ...projects.map((p) => ({
+      url: `${site.url}/work/${p.slug}`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
   ]
-
-  return routes.map((route) => ({
-    url: `${BASE_URL}${route.path}`,
-    lastModified: new Date(),
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }))
 }
