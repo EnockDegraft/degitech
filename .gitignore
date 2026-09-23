@@ -27,5 +27,3 @@ yarn-error.log*
 next-env.d.ts
 # keep the example env file in the repo (it holds no secrets)
 !.env.example
-!.env.local
-.env*
