@@ -25,7 +25,7 @@ export default function WorkPage() {
       />
 
       <section className="py-20 md:py-28">
-        <div className="container-x grid gap-6 md:grid-cols-2">
+        <div className="container-x grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {projects.map((p, i) => (
             <ProjectCard key={p.slug} project={p} index={i} />
           ))}
