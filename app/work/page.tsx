@@ -7,7 +7,7 @@ import { projects } from "@/lib/projects"
 export const metadata: Metadata = {
   title: "Work & Case Studies",
   description:
-    "Case studies from DegiTech Consults: biometric attendance, transport requisition, AI exam verification, real-time issue tracking, school ordering and retail inventory systems.",
+    "Case studies from DegiTech Consults: biometric and geofenced attendance, AI exam verification, RAG assistants, banking card and requisition systems, fintech, retail and workflow tools.",
   alternates: { canonical: "/work" },
 }
 
@@ -21,7 +21,7 @@ export default function WorkPage() {
             Systems that teams <span className="text-gradient">rely on every day.</span>
           </>
         }
-        lead="A selection of platforms I've designed and engineered across banking, education, food service and retail. Client-confidential details are kept general."
+        lead="A selection of platforms I've designed and engineered across banking, the public sector, education, fintech, food service and retail. Client-confidential details are kept general."
       />
 
       <section className="py-20 md:py-28">

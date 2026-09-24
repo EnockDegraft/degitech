@@ -53,7 +53,7 @@ export default async function CaseStudyPage({ params }: Props) {
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted md:text-xl">{project.summary}</p>
 
-          <dl className="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-3">
+          <dl className={`mt-10 grid gap-6 border-t border-line pt-8 ${project.role ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
             <div>
               <dt className="text-xs font-medium tracking-[0.14em] text-subtle uppercase">Client</dt>
               <dd className="mt-2 text-fg">{project.client}</dd>
@@ -62,10 +62,12 @@ export default async function CaseStudyPage({ params }: Props) {
               <dt className="text-xs font-medium tracking-[0.14em] text-subtle uppercase">Platform</dt>
               <dd className="mt-2 text-fg">{project.platform}</dd>
             </div>
-            <div>
-              <dt className="text-xs font-medium tracking-[0.14em] text-subtle uppercase">My role</dt>
-              <dd className="mt-2 text-fg">{project.role}</dd>
-            </div>
+            {project.role && (
+              <div>
+                <dt className="text-xs font-medium tracking-[0.14em] text-subtle uppercase">My role</dt>
+                <dd className="mt-2 text-fg">{project.role}</dd>
+              </div>
+            )}
           </dl>
         </div>
       </section>

@@ -543,6 +543,316 @@ function RetailVisual() {
   )
 }
 
+function GeofenceVisual() {
+  return (
+    <div className="flex h-full items-center justify-center gap-4 p-6">
+      <PhoneFrame className="w-[42%] min-w-[150px] max-w-[170px]">
+        <div className="space-y-2 p-2.5 pt-7">
+          <p className="text-center text-[9px] font-semibold text-fg">Duty location check</p>
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-[#0d1a38]">
+            <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden>
+              {[20, 40, 60, 80].map((v) => (
+                <g key={v} stroke="rgb(148 163 184 / 0.1)">
+                  <line x1={v} x2={v} y1="0" y2="100" />
+                  <line y1={v} y2={v} x1="0" x2="100" />
+                </g>
+              ))}
+              <path d="M0 64 C 30 58, 45 70, 100 52" stroke="rgb(148 163 184 / 0.25)" strokeWidth="4" fill="none" />
+              <circle cx="50" cy="48" r="28" fill="rgb(52 211 153 / 0.12)" stroke="#34d399" strokeDasharray="3 3" />
+              <circle cx="50" cy="48" r="4" fill="#34d399" />
+              <circle cx="58" cy="42" r="3.5" fill="#8fa9ff" stroke="#fff" strokeWidth="1" />
+            </svg>
+          </div>
+          <Status label="Inside duty area" tone="success" />
+          <span className="block rounded-md bg-brand py-1 text-center text-[8px] font-semibold text-white">Verify face & clock in</span>
+        </div>
+      </PhoneFrame>
+      <div className="hidden w-[44%] space-y-2 sm:block">
+        {[
+          ["Airport post", "38 on duty", "success"],
+          ["Border post", "22 on duty", "success"],
+          ["Regional office", "3 outside area", "warning"],
+        ].map(([k, v, t]) => (
+          <div key={k} className="flex items-center justify-between rounded-lg border border-line bg-surface px-2.5 py-2">
+            <span className="text-[9px] text-fg">{k}</span>
+            <Status label={v} tone={t as "success"} />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function RagVisual() {
+  return (
+    <BrowserFrame url="assistant.pentvars/chat" className="m-5 sm:m-7">
+      <div className="space-y-2.5 p-3">
+        <div className="ml-auto w-fit max-w-[70%] rounded-xl rounded-br-sm bg-brand px-2.5 py-1.5 text-[9px] text-white">
+          When does registration close this semester?
+        </div>
+        <div className="flex gap-2">
+          <span className="size-5 shrink-0 rounded-md bg-gradient-to-br from-accent to-brand-600" />
+          <div className="max-w-[80%] space-y-1.5 rounded-xl rounded-tl-sm border border-line bg-white/[0.03] p-2">
+            <Bar w="95%" className="bg-white/15" />
+            <Bar w="80%" className="bg-white/15" />
+            <Bar w="60%" className="bg-white/15" />
+            <div className="flex flex-wrap gap-1 pt-1">
+              {["Academic calendar", "Student handbook"].map((s) => (
+                <Status key={s} label={s} tone="brand" />
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 rounded-lg border border-line-strong px-2 py-1.5">
+          <span className="flex-1 text-[9px] text-subtle">Ask about the university…</span>
+          <span className="flex size-4 items-center justify-center rounded bg-brand text-[8px] text-white">↑</span>
+        </div>
+      </div>
+    </BrowserFrame>
+  )
+}
+
+function SavingsVisual() {
+  return (
+    <div className="flex h-full items-center justify-center gap-4 p-6">
+      <PhoneFrame className="w-[42%] min-w-[150px] max-w-[170px]">
+        <div className="space-y-2 p-2.5 pt-7">
+          <p className="text-[9px] font-semibold text-fg">My susu group</p>
+          <div className="rounded-lg bg-gradient-to-br from-warning/30 to-brand/30 p-2">
+            <p className="text-[8px] text-muted uppercase">Saved so far</p>
+            <p className="text-sm font-semibold text-fg">GHS 1,450</p>
+            <span className="mt-1 block h-1 rounded-full bg-white/10">
+              <span className="block h-1 w-[62%] rounded-full bg-warning" />
+            </span>
+          </div>
+          {[
+            ["Week 12", "Paid · MoMo", "success"],
+            ["Week 13", "Due Fri", "warning"],
+            ["Payout", "Week 20", "brand"],
+          ].map(([k, v, t]) => (
+            <div key={k} className="flex items-center justify-between rounded-md bg-white/[0.03] px-2 py-1.5">
+              <span className="text-[8px] font-semibold text-fg">{k}</span>
+              <Status label={v} tone={t as "success"} />
+            </div>
+          ))}
+        </div>
+      </PhoneFrame>
+      <div className="hidden w-[40%] rounded-xl border border-line-strong bg-surface p-3 sm:block">
+        <p className="text-[9px] text-subtle uppercase">Contributions</p>
+        <div className="mt-2 h-16"><Bars values={[55, 60, 58, 70, 72, 80, 85]} /></div>
+      </div>
+    </div>
+  )
+}
+
+function TableVisual({
+  url,
+  title,
+  kpis,
+  cols,
+  rows,
+}: {
+  url: string
+  title: string
+  kpis: [label: string, value: string, tone: "brand" | "success" | "warning"][]
+  cols: string[]
+  rows: { cells: string[]; status: [label: string, tone: "success" | "warning" | "brand" | "danger" | "muted"] }[]
+}) {
+  return (
+    <BrowserFrame url={url} className="m-5 sm:m-7">
+      <div className="flex">
+        <Sidebar items={5} active={1} />
+        <div className="flex-1 space-y-3 p-3">
+          <p className="text-[11px] font-semibold text-fg">{title}</p>
+          <div className="grid grid-cols-3 gap-2">
+            {kpis.map(([label, value, tone]) => (
+              <Kpi key={label} label={label} value={value} tone={tone} />
+            ))}
+          </div>
+          <div className="overflow-hidden rounded-lg border border-line">
+            <div className="grid grid-cols-[1.4fr_1fr_auto] gap-2 bg-white/[0.03] px-2 py-1 text-[8px] text-subtle uppercase">
+              {cols.map((c) => (
+                <span key={c}>{c}</span>
+              ))}
+            </div>
+            {rows.map((r) => (
+              <div key={r.cells.join()} className="grid grid-cols-[1.4fr_1fr_auto] items-center gap-2 border-t border-line/60 px-2 py-1.5">
+                <span className="truncate text-[9px] text-fg">{r.cells[0]}</span>
+                <span className="truncate font-mono text-[9px] text-muted">{r.cells[1]}</span>
+                <Status label={r.status[0]} tone={r.status[1]} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </BrowserFrame>
+  )
+}
+
+function CardsVisual() {
+  return (
+    <TableVisual
+      url="cmpro.internal/cards"
+      title="Card requests"
+      kpis={[["Pending", "42", "warning"], ["Issued", "318", "success"], ["Branches", "24", "brand"]]}
+      cols={["Request", "Card", "Status"]}
+      rows={[
+        { cells: ["New debit card", "•••• 4821"], status: ["Printing", "brand"] },
+        { cells: ["Replacement", "•••• 1907"], status: ["Pending", "warning"] },
+        { cells: ["PIN reissue", "•••• 6634"], status: ["Issued", "success"] },
+      ]}
+    />
+  )
+}
+
+function DonationsVisual() {
+  return (
+    <TableVisual
+      url="donations.app/collections"
+      title="Collections"
+      kpis={[["This month", "GHS 18,240", "success"], ["Contributors", "326", "brand"], ["Drives", "4 active", "warning"]]}
+      cols={["Contributor", "Amount", "Status"]}
+      rows={[
+        { cells: ["K. Asante", "GHS 500"], status: ["Received", "success"] },
+        { cells: ["A. Boateng", "GHS 200"], status: ["Received", "success"] },
+        { cells: ["E. Owusu", "GHS 150"], status: ["Pledged", "warning"] },
+      ]}
+    />
+  )
+}
+
+function VisitorsVisual() {
+  return (
+    <TableVisual
+      url="visitors.internal/today"
+      title="Visitors today"
+      kpis={[["On site", "12", "brand"], ["Checked out", "37", "success"], ["Expected", "5", "warning"]]}
+      cols={["Visitor", "Host", "Status"]}
+      rows={[
+        { cells: ["Y. Mensah", "Finance · 09:12"], status: ["On site", "brand"] },
+        { cells: ["J. Addo", "HR · 10:40"], status: ["Checked out", "success"] },
+        { cells: ["Courier", "Front desk"], status: ["Expected", "muted"] },
+      ]}
+    />
+  )
+}
+
+function RegisterVisual() {
+  return (
+    <TableVisual
+      url="attendance.app/admin"
+      title="Attendance · Today"
+      kpis={[["Present", "146", "success"], ["Late", "9", "warning"], ["On leave", "6", "brand"]]}
+      cols={["Staff", "In / out", "Status"]}
+      rows={[
+        { cells: ["A. Darko", "07:54 – 17:02"], status: ["Present", "success"] },
+        { cells: ["P. Nyarko", "08:26 – —"], status: ["Late", "warning"] },
+        { cells: ["S. Quaye", "—"], status: ["On leave", "muted"] },
+      ]}
+    />
+  )
+}
+
+function ValidatorVisual() {
+  return (
+    <TableVisual
+      url="validator.local/report"
+      title="staff_upload.xlsx · validation report"
+      kpis={[["Rows", "1,204", "brand"], ["Valid", "1,187", "success"], ["Invalid", "17", "warning"]]}
+      cols={["Row", "Issue", "Result"]}
+      rows={[
+        { cells: ["Row 48 · Email", "missing @"], status: ["Invalid", "danger"] },
+        { cells: ["Row 112 · Date", "31/02/2024"], status: ["Invalid", "danger"] },
+        { cells: ["Row 113 · Phone", "+233 24…"], status: ["Valid", "success"] },
+      ]}
+    />
+  )
+}
+
+function ShopVisual() {
+  return (
+    <BrowserFrame url="Joan Shop · Products" className="m-5 sm:m-7">
+      <div className="flex">
+        <Sidebar items={5} active={1} />
+        <div className="flex-1 space-y-3 p-3">
+          <div className="flex items-center justify-between">
+            <p className="text-[11px] font-semibold text-fg">Products</p>
+            <span className="rounded-md bg-brand px-2 py-1 text-[9px] font-semibold text-white">+ Add product</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              ["SKU-0142", "18 in stock", "success"],
+              ["SKU-0217", "4 left", "warning"],
+              ["SKU-0305", "11 in stock", "success"],
+            ].map(([name, stock, tone]) => (
+              <div key={name} className="space-y-1.5 rounded-lg border border-line bg-white/[0.02] p-2">
+                <span className="block aspect-[4/3] rounded-md bg-gradient-to-br from-accent/40 to-brand/40" />
+                <p className="truncate text-[9px] font-medium text-fg">{name}</p>
+                <Status label={stock} tone={tone as "success"} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </BrowserFrame>
+  )
+}
+
+function CryptoVisual() {
+  return (
+    <div className="flex h-full flex-col items-stretch justify-center gap-3 p-6 sm:flex-row sm:items-center">
+      <div className="flex-1 rounded-xl border border-line-strong bg-surface p-3">
+        <p className="text-[9px] text-subtle uppercase">Plaintext</p>
+        <p className="mt-1 font-mono text-[10px] text-fg">Transfer GHS 2,500 to acct 0142…</p>
+      </div>
+      <div className="flex flex-col items-center gap-1 text-brand-300">
+        <span className="flex size-8 items-center justify-center rounded-full bg-brand/15 ring-1 ring-brand/40">
+          <svg viewBox="0 0 16 16" className="size-4" aria-hidden>
+            <rect x="3" y="7" width="10" height="7" rx="1.5" fill="currentColor" />
+            <path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+          </svg>
+        </span>
+        <span className="font-mono text-[8px] text-subtle">encrypt</span>
+      </div>
+      <div className="flex-1 rounded-xl border border-line-strong bg-surface p-3">
+        <p className="text-[9px] text-subtle uppercase">Ciphertext</p>
+        <p className="mt-1 font-mono text-[10px] break-all text-accent">9f2c7a1be04d88c3f16a5e0d27b9…</p>
+      </div>
+    </div>
+  )
+}
+
+function SiteVisual() {
+  return (
+    <BrowserFrame url="degitechconsults.vercel.app" className="m-5 sm:m-7">
+      <div className="space-y-3 p-4">
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-1.5">
+            <span className="size-4 rounded-md bg-gradient-to-br from-brand-300 to-brand-600" />
+            <span className="text-[10px] font-semibold text-fg">DegiTech</span>
+          </span>
+          <span className="flex gap-2">
+            {["Services", "Work", "About"].map((l) => (
+              <span key={l} className="text-[8px] text-muted">{l}</span>
+            ))}
+          </span>
+        </div>
+        <div className="space-y-1.5 py-2">
+          <p className="text-[13px] font-semibold text-fg">Software that runs serious operations.</p>
+          <Bar w="70%" />
+          <Bar w="50%" />
+        </div>
+        <span className="inline-block rounded-full bg-brand px-2.5 py-1 text-[8px] font-semibold text-white">Book a consultation</span>
+        <div className="grid grid-cols-3 gap-2">
+          {[0, 1, 2].map((i) => (
+            <span key={i} className="block h-10 rounded-lg border border-line bg-white/[0.03]" />
+          ))}
+        </div>
+      </div>
+    </BrowserFrame>
+  )
+}
+
 const visuals: Record<VisualKind, () => ReactNode> = {
   attendance: AttendanceVisual,
   requisition: RequisitionVisual,
@@ -551,6 +861,17 @@ const visuals: Record<VisualKind, () => ReactNode> = {
   ordering: OrderingVisual,
   verify: VerifyVisual,
   retail: RetailVisual,
+  geofence: GeofenceVisual,
+  rag: RagVisual,
+  savings: SavingsVisual,
+  cards: CardsVisual,
+  donations: DonationsVisual,
+  visitors: VisitorsVisual,
+  register: RegisterVisual,
+  validator: ValidatorVisual,
+  shop: ShopVisual,
+  crypto: CryptoVisual,
+  site: SiteVisual,
 }
 
 export function ProjectVisual({ kind, className, innerClassName }: { kind: VisualKind; className?: string; innerClassName?: string }) {
